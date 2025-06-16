@@ -202,3 +202,58 @@ input.invalid {
 .hidden {
   display: none;
 }
+
+.error-tooltip {
+  position: absolute;
+  background-color: white;
+  color: #f44336;
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 4px;
+  white-space: nowrap;
+  top: -35px; /* position above the input */
+  left: 0;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  transform: translateY(-5px);
+  font-weight: bold
+  
+}
+
+.error-tooltip::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 10px;
+  border-width: 8px 8px 0 8px;
+  border-style: solid;
+  border-color: #ffffff transparent transparent transparent;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-5px);
+  }
+}
+
+
+input.invalid:focus + .error-tooltip {
+  opacity: 1;
+  pointer-events: auto;
+
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.form-group {
+  position: relative;
+}
+.password-tooltip {
+  top: -90px; /* move higher only for password reqs */
+}

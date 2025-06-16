@@ -15,10 +15,11 @@
 
       $cardTitle = "Sign Up";
       $cardDesc = "Create a new account with us.";
-      $cardLink = "/public/signup.php";
+      $cardLink = "signup.php";
       require 'includes/views/components/card.php';
     ?>
   </div>
+
 </main>
 
 <?php require_once 'includes/views/partials/footer.php'; ?>

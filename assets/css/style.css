@@ -1,3 +1,4 @@
+/* General Page Styles */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #121212;
@@ -38,6 +39,11 @@ header, footer {
   font-size: 16px;
 }
 
+.navbar .nav-links li a:hover {
+  color: #4caf50;
+}
+
+/* Main Content */
 .main-content {
   text-align: center;
   padding: 40px 20px;
@@ -80,4 +86,119 @@ header, footer {
 
 .card-button:hover {
   background-color: #303f9f;
+}
+
+/* === Signup Form Styling === */
+.container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 2rem;
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+h2.form-title {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 2rem;
+}
+
+.signup-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.signup-form label {
+  display: block;
+  color: #f0f0f0;
+  margin-bottom: 0.5rem;
+}
+
+.signup-form input,
+.signup-form select {
+  width: 100%;
+  padding: 10px;
+  background: #2a2a2a;
+  color: #ffffff;
+  border: 1px solid #444;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.signup-form input:focus,
+.signup-form select:focus {
+  outline: none;
+  border-color: #4caf50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+.signup-form .phone-group {
+  display: flex;
+  gap: 10px;
+}
+
+.signup-form .phone-group select {
+  width: 30%;
+}
+
+.signup-form .phone-group input {
+  width: 70%;
+}
+
+.error-msg {
+  color: #ff5555;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.btn-submit {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-submit:hover {
+  background-color: #388e3c;
+}
+
+/* reCAPTCHA box spacing */
+.g-recaptcha {
+  margin-top: 10px;
+}
+.error-msg {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 0.2rem;
+}
+
+.password-requirements {
+  list-style: none;
+  padding: 0;
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+}
+
+.password-requirements li.valid {
+  color: green;
+}
+.password-requirements li.invalid {
+  color: red;
+}
+
+
+input.invalid {
+  border-color: red;
+  box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+}
+
+.hidden {
+  display: none;
 }

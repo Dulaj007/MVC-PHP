@@ -14,18 +14,19 @@ function uniqueName(PDO $pdo, string $tableName, string $fieldName, string $inpu
 //Function to 1++ refferal count
 function incrementReferralCount(PDO $pdo, string $referral): void {
     // Step 1: Check if a user exists with the given referral code
-    $stmt = $pdo->prepare("SELECT referralsCount FROM users WHERE referral = :referral");
+    $stmt = $pdo->prepare("SELECT referralsCount FROM users WHERE referralCode = :referral");
     $stmt->execute(['referral' => $referral]);
 
     // Step 2: If referral found, increment the referralsCount
     if ($stmt->rowCount() > 0) {
-        $update = $pdo->prepare("UPDATE users SET referralsCount = referralsCount + 1 WHERE referral = :referral");
+        $update = $pdo->prepare("UPDATE users SET referralsCount = referralsCount + 1 WHERE referralCode = :referral");
         $update->execute(['referral' => $referral]);
     }
 }
 
 define('PEPPER', 'your-pepper-string-here');
 
+//Hshing function that can be used for any input except passwords
 function hashSensitiveData(string $data): string {
     $salt = bin2hex(random_bytes(16));  // 32 hex chars = 16 bytes salt
     $peppered = $data . PEPPER;
@@ -51,11 +52,13 @@ function generateReferralCode(PDO $pdo): string {
         $stmt = $pdo->query("SELECT COUNT(*) AS total FROM users");
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         $count = (int)$row['total'] + 1;
-        return str_pad((string)$count, 7, "0", STR_PAD_LEFT);
+        $referralCode = str_pad((string)$count, 7, "0", STR_PAD_LEFT);
+        return $referralCode;
     } catch (PDOException $e) {
         throw new Exception("Error generating referral code.");
     }
 }
+
 
 function formatPhoneNumber(string $countryCode, string $phone): string {
     // Remove non-numeric chars from phone
@@ -82,31 +85,31 @@ function createUser(
     string $accountType
 ): void {
     try {
-        $hashedFirstName = hashSensitiveData($firstName);
-        $hashedLastName = hashSensitiveData($lastName);
-        $hashedEmail = hashSensitiveData($email);
         $hashedPhone = hashSensitiveData($phone);
         $hashedDob = hashSensitiveData($dob);
         $hashedPassword = hashPasswordSecurely($password);
         $formattedPhone = formatPhoneNumber($countryCode, $phone);
         $referralCode = generateReferralCode($pdo);
+        $referralDefault = 0;
 
         $stmt = $pdo->prepare("INSERT INTO users (
-            first_name, last_name, username, email, password, dob, phone_number, account_type, referral_code, referralsCount
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)");
+            firstName, lastName, username, email, password, dob, phoneNumber, accountType, referralCode, referredBy, referralsCount
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         $stmt->execute([
-            $hashedFirstName,
-            $hashedLastName,
+            $firstName,
+            $lastName,
             $username,
-            $hashedEmail,
+            $email,
             $hashedPassword,
             $hashedDob,
             $formattedPhone,
             $accountType,
-            $referralCode
+            $referralCode,
+            $referral,
+            $referralDefault
         ]);
     } catch (Exception $e) {
-        throw $e; // Rethrow to handle outside
+        throw $e;
     }
 }

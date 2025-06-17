@@ -10,7 +10,7 @@
     <?php
       $cardTitle = "Login";
       $cardDesc = "Access your account securely.";
-      $cardLink = "/public/login.php";
+      $cardLink = "signin.php";
       require 'includes/views/components/card.php';
 
       $cardTitle = "Sign Up";

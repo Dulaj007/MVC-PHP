@@ -2,10 +2,10 @@
 // dbh.inc.php – Database connection script using PDO (Highly Secure)
 
 // Step 1: DB Credentials - Update these with your actual database details
-$host = 'localhost';
-$dbname = 'your_database';
-$user = 'your_username';
-$pass = 'your_password';
+$host = 'localhost:3307';
+$dbname = 'userexamplesite';
+$user = 'root';
+$pass = '';
 
 // Step 2: DSN (Data Source Name)
 $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";

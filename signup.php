@@ -1,9 +1,17 @@
+<?php
+require_once 'includes/config/config.php'; // Secure session logic
+
+if (isset($_SESSION['user'])) {
+    header("Location: profile.php");
+    exit();
+}
+?>
 <?php require_once 'includes/views/partials/header.php'; ?>
 <?php require_once 'includes/views/partials/navbar.php'; ?>
 
 <div class="container">
   <h2 class="form-title">Create Your Account</h2>
-  <form action="includes/controllers/signup.controller.php" method="POST" class="signup-form" novalidate>
+  <form action="includes/signup.inc.php" method="POST" class="signup-form" novalidate>
 
     <div class="form-group">
       <label for="first_name">First Name</label>
@@ -90,6 +98,58 @@
       <div class="g-recaptcha" data-sitekey="6Lc4X2IrAAAAAKFO2Kmcql_beV0robdSCGRE0bPM"></div>
       <div class="error-tooltip error-msg" id="recaptcha_error"></div>
     </div>
+<?php if (isset($_GET['error'])): ?>
+    <div class="error-msg"> 
+        <?php  
+        switch ($_GET['error']) {
+            case 'invalidaccess':
+                echo "Acess denied form the server.";
+                break;
+             case 'emptyfields':
+                echo "Please fill in all required fields.";
+                break;
+            case 'InputLengthExceeded':
+                echo "Names length Exceeded.";
+                break;
+            case 'inValidateNames':
+                echo "Invalid names. Try again.";
+                break;
+            case 'usernametaken':
+                echo "Username is already taken.";
+                break;
+            case 'emailtaken':
+                echo "Email is already registered.";
+                break;
+            case 'invalidemail':
+                echo "Please enter a valid email address.";
+                break;
+            case 'weakpassword':
+                echo "Password must meet strength requirements.";
+                break;
+            case 'passwordmismatch':
+                echo "Passwords do not match.";
+                break;
+            case 'underage':
+                echo "You must be at least 18 years old to register.";
+                break;
+            case 'invalidreferral':
+                echo "Referral code is not valid.";
+                break;
+            case 'invalidphone':
+                echo "Phone number is not valid.";
+                break;
+            case 'invalidaccounttype':
+                echo "Please select a valid account type.";
+                break;
+            case 'recaptcha_failed':
+                echo "Please verify that you're not a robot.";
+                break;
+            default:
+                echo "Something went wrong. Please try again.";
+        }
+        ?>
+    </div>
+<?php endif; ?>
 
     <input type="submit" value="Sign Up" class="btn-submit">
   </form>

@@ -1,0 +1,6 @@
+[Login Error] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'usernames' in 'where clause'
+[Login Error] SQLSTATE[HY093]: Invalid parameter number
+[Login Error] SQLSTATE[HY093]: Invalid parameter number
+[Login Error] SQLSTATE[HY093]: Invalid parameter number
+[Login Error] SQLSTATE[HY093]: Invalid parameter number
+[Login Error] SQLSTATE[HY093]: Invalid parameter number
